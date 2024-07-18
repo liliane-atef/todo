@@ -20,7 +20,7 @@ export class TodoListComponent {
   @Output() itemRemoved = new EventEmitter<number>();
   @Output() completedItemRemoved = new EventEmitter<void>();
   constructor(
-    private authService: AuthService,  // <-- Inject AuthService
+    private authService: AuthService,
     private router: Router
   ) {}
   removeCompletedItems() {
