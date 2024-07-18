@@ -1,29 +1,39 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { TodoService } from './todo.service';
+import { FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let todoService: TodoService;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [FormsModule], 
+      providers: [TodoService],
+      declarations: [], 
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    todoService = TestBed.inject(TodoService);
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have the 'todo' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('todo');
+  it('should initialize with empty todo items', () => {
+    expect(component.items).toEqual([]);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, todo');
+  it('should add a new todo item', () => {
+    const initialLength = component.items.length;
+    const newTodoText = 'Test todo item';
+    component.addNewTodo(newTodoText);
+    expect(component.items.length).toBe(initialLength + 1);
+    expect(component.items.some(item => item.ToDoText=== newTodoText)).toBeTrue();
   });
 });
+
