@@ -1,0 +1,13 @@
+<ul *ngIf="items.length>0" class="ToDoList">
+    <li *ngFor="let item of items; index as i" class="todo-item">
+        <div class="todo-text" [ngClass]="{ 'completed': item.isComplete }">
+            {{ item.ToDoText }}
+        </div>
+        <div class="todo-checkbox">
+            <input class="checkbox" type="checkbox" [checked]="item.isComplete"
+                [(ngModel)]="item.isComplete" [attr.data-index]="i" (click)="removeCompletedItems()">
+            <button class="btn btn-sm" (click)="removeItem(i)">X</button>
+        </div>
+    </li>
+</ul>
+<!-- <button class="btn btn-secondary float-right" (click)="logout()">Logout</button> -->
